@@ -1,0 +1,30 @@
+.grid-container {
+    display: grid;
+}
+
+.grid-row {
+    display: flex;
+}
+
+.grid-cell {
+    width: 25px;
+    height: 25px;
+    border: 1px solid darkgrey;
+    cursor: pointer;
+}
+
+.start-node {
+    background-color: green;
+}
+
+.end-node {
+    background-color: red;
+}
+
+.wall-node {
+    background-color: black;
+}  
+
+.visited-node {
+    background-color: blueviolet;
+}

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const DEFAULT_ROWS = 20;
 const DEFAULT_COLS = 20;
 
-const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButtonClick, onSetWallButtonClick, onRunAlgorithm, onStepAlgorithm, isSettingStart, isSettingEnd, isSettingWall }) => {
+const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButtonClick, onSetWallButtonClick, onRunAlgorithm, onNextStepAlgorithm, onPreviousStepAlgorithm, isSettingStart, isSettingEnd, isSettingWall }) => {
     const [rows, setRows] = useState(DEFAULT_ROWS);
     const [cols, setCols] = useState(DEFAULT_COLS);
     const [algorithm, setAlgorithm] = useState('bfs');
@@ -29,13 +29,17 @@ const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButton
         setAlgorithm(e.target.value);
     };
 
-    const handleRunAlgorithm = (algorithm) => {
+    const handleRunAlgorithm = () => {
         onRunAlgorithm(algorithm);
     };
 
-    const handleNextStep = (algorithm) => {
-        onStepAlgorithm(algorithm);
+    const handleNextStep = () => {
+        onNextStepAlgorithm(algorithm);
     };
+
+    const handlePreviousStep = () => {
+        onPreviousStepAlgorithm();
+    }
 
     return (
         <div>
@@ -76,10 +80,13 @@ const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButton
             </div>
 
             <div className='grid-start-button-container'>
-                <button onClick={() => handleRunAlgorithm(algorithm)}>Run Algorithm</button>
+                <button onClick={handleRunAlgorithm}>
+                    Run
+                </button>
             </div>
             <div className="grid-step-button-container"> 
-                <button onClick={() => handleNextStep(algorithm)}>Next Step</button>
+                <button onClick={() => handleNextStep()}>Next Step</button>
+                <button onClick={() => handlePreviousStep()}>Previous Step</button>
             </div>
         </div>
     );

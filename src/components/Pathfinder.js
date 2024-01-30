@@ -116,6 +116,7 @@ const Pathfinder = () => {
   };
 
   const handleNextStep = (algorithm) => {
+    console.log(index);
     if(startNode == null || endNode == null) {
       console.log('Start or end node not set');
       return;
@@ -127,10 +128,31 @@ const Pathfinder = () => {
       } else if(algorithm === 'dfs') {
         setVisitedNodes(dfsAlgorithm(grid, startNode, endNode));
       }
+      setIndex(1);
     }
-    setTimeout(() => {
-      animateNextStep();
-    }, 100);
+
+    animateNextStep();
+  };
+
+  const handlePreviousStep = () => {
+    console.log(index);
+    if(index > 0) {
+      setIndex(index - 1);
+      
+      animatePreviousStep();
+    }
+  };
+
+  const animatePreviousStep = () => { 
+    const node = visitedNodes[index];
+
+    setGrid(prevGrid => {
+      const updatedGrid = [...prevGrid];
+      if(node.row !== startNode.row || node.col !== startNode.col) {
+        updatedGrid[node.row][node.col] = 0;
+      }
+      return updatedGrid; 
+    });
   };
 
   const animateNextStep = () => {
@@ -213,7 +235,8 @@ const Pathfinder = () => {
           onSetEndButtonClick={handleSetEndButtonClick} 
           onSetWallButtonClick={handleSetWallButtonClick}
           onRunAlgorithm={handleRunAlgorithm}
-          onStepAlgorithm={handleNextStep}
+          onNextStepAlgorithm={handleNextStep}
+          onPreviousStepAlgorithm={handlePreviousStep}
           isSettingStart={isSettingStart} 
           isSettingEnd={isSettingEnd}
           isSettingWall={isSettingWall}

@@ -52,7 +52,7 @@ const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButton
                     Cols:
                     <input type="number" value={cols} onChange={(e) => setCols(parseInt(e.target.value, 10))} />
                 </label>
-                <button onClick={handleUpdateGrid}>Update Grid</button>
+                <button onClick={handleUpdateGrid}>Reset Grid</button>
             </div>
                 
             <div className='grid-button-container'>
@@ -75,6 +75,7 @@ const GridSettings = ({ onUpdateGridClick, onSetStartButtonClick, onSetEndButton
                     <select value={algorithm} onChange={handleAlgorithmChange}>
                         <option value="bfs">Breadth First Search</option>
                         <option value="dfs">Depth First Search</option>
+                        <option value="dijkstra">Dijkstra's Algorithm</option>
                     </select>
                 </label>
             </div>

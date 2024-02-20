@@ -33,7 +33,13 @@ const Grid = ({ grid, setNode }) => {
                     {row.map((cell, colIndex) => (
                         <div 
                             key={colIndex} 
-                            className={`grid-cell ${cell === 5 ? 'start-node' : ''} ${cell === 3 ? 'end-node' : ''} ${cell === 1 ? 'wall-node' : ''} ${cell === 2 ? 'visited-node' : ''}`}
+                            className={`grid-cell 
+                                    ${cell === 5 ? 'start-node' : ''} 
+                                    ${cell === 3 ? 'end-node' : ''} 
+                                    ${cell === 1 ? 'wall-node' : ''} 
+                                    ${cell === 2 ? 'visited-node' : ''}
+                                    ${cell === 4 ? 'next-node' : ''}`
+                                }
                             onMouseDown={() => handleClick(rowIndex, colIndex)}
                             onMouseEnter={() => handleMouseEnter(rowIndex, colIndex)}
                         ></div>

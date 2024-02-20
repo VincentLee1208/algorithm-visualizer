@@ -6,9 +6,10 @@ import "../styles/Pathfinder.css";
 
 import { bfsAlgorithm } from "../algorithms/BFS";
 import { dfsAlgorithm } from "../algorithms/DFS";
+import { dijkstraAlgorithm } from "../algorithms/Dijkstra";
 
 const Pathfinder = () => {
-    const DEFAULT_ROWS = 20;
+  const DEFAULT_ROWS = 20;
   const DEFAULT_COLS = 20;
 
   const createGrid = (rows, cols) => {
@@ -24,6 +25,8 @@ const Pathfinder = () => {
   const [isSettingWall, setIsSettingWall] = useState(false);
   const [visitedNodes, setVisitedNodes] = useState([]);
   const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isRunning, setIsRunning] = useState(false);
 
   const handleUpdateGrid = (rows, cols) => {
     const newGrid = createGrid(rows, cols);
@@ -71,23 +74,34 @@ const Pathfinder = () => {
       }
       return updatedGrid;
     });
+  };
+
+  const handlePauseButtonClick = () => {
+    setIsPaused(!isPaused);
   }
 
   const autoRunAnimated = (visitedNodes, index = 0) => {
-    if(index < visitedNodes.length) {
+    if(index < visitedNodes.length && !isPaused) {
       const node = visitedNodes[index];
-
+      
       setGrid(prevGrid => {
         const updatedGrid = [...prevGrid];
         if(node.row !== startNode.row || node.col !== startNode.col) {
           updatedGrid[node.row][node.col] = 2;
+        }
+
+        if(index < visitedNodes.length - 1) {
+          const nextNode = visitedNodes[index + 1];
+          if(nextNode.row !== startNode.row || nextNode.col !== startNode.col) {
+            updatedGrid[nextNode.row][nextNode.col] = 4;
+          }
         }
         return updatedGrid;
       });
 
       setTimeout(() => {
         autoRunAnimated(visitedNodes, index + 1);
-      }, 500);
+      }, 100);
     }
   };
 
@@ -98,6 +112,13 @@ const Pathfinder = () => {
       console.log('Start or end node not set');
       return;
     }
+
+    if(isRunning) {
+      return;
+    }
+
+    setIsRunning(true);
+    setIsPaused(false);
 
     clearGrid();
 
@@ -111,12 +132,16 @@ const Pathfinder = () => {
         visitedNodes = dfsAlgorithm(grid, startNode, endNode);
         autoRunAnimated(visitedNodes);
         break;
+      case 'dijkstra':
+        visitedNodes = dijkstraAlgorithm(grid, startNode, endNode);
+        autoRunAnimated(visitedNodes);
+        break;
       default:
+        break;
     }
   };
 
   const handleNextStep = (algorithm) => {
-    console.log(index);
     if(startNode == null || endNode == null) {
       console.log('Start or end node not set');
       return;
@@ -135,7 +160,6 @@ const Pathfinder = () => {
   };
 
   const handlePreviousStep = () => {
-    console.log(index);
     if(index > 0) {
       setIndex(index - 1);
       
@@ -241,11 +265,12 @@ const Pathfinder = () => {
           isSettingEnd={isSettingEnd}
           isSettingWall={isSettingWall}
         />
+
+        {isRunning ? <button onClick={handlePauseButtonClick}>{isPaused ? 'Resume' : 'Pause'}</button> : null}
       </div>
 
       <div className="grid-display">
         <Grid grid={grid} setNode={handleSetNode} />
-
       </div>
     </div>
   );

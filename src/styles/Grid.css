@@ -28,3 +28,7 @@
 .visited-node {
     background-color: blueviolet;
 }
+
+.next-node {
+    background-color: #f05da9;
+}

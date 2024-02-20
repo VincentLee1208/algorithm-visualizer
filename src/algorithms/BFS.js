@@ -1,39 +1,11 @@
+import { getUnvisitedNeighbours, createSeenNodesArray } from "../helpers/general_helper";
+
 function bfsAlgorithm(grid, startNode, endNode) {
     const visitedNodes = [];
     const queue = [];
     const numRows = grid.length;
     const numCols = grid[0].length;
-
-    const isValid = (row, col) => {
-        return row >= 0 && row < numRows && col >= 0 && col < numCols;
-    };
-
-    const getUnvisitedNeighbors = (node) => {
-        const {row, col} = node;
-        const neighbours = [];
-
-        const directions = [
-            {row: -1, col: 0},
-            {row: 1, col: 0},
-            {row: 0, col: -1},
-            {row: 0, col: +1}
-        ];
-
-        for(const dir of directions) {
-            const neighbourRow = row + dir.row;
-            const neighbourCol = col + dir.col;
-
-            if(isValid(neighbourRow, neighbourCol) && grid[neighbourRow][neighbourCol] !== 1) {
-                neighbours.push({row: neighbourRow, col: neighbourCol});
-            }
-        }
-
-        return neighbours;
-    };
-
-    const createSeenNodesArray = (rows, cols) => {
-        return Array.from({ length: rows }, () => Array.from({ length: cols }, () => false));
-    }
+    console.log("starting bfs");
 
     const seenNodes = createSeenNodesArray(numRows, numCols);
     queue.push(startNode);
@@ -52,8 +24,7 @@ function bfsAlgorithm(grid, startNode, endNode) {
         if(node.row === endNode.row && node.col === endNode.col) {
             return visitedNodes;
         }
-
-        const neighbours = getUnvisitedNeighbors(node);
+        const neighbours = getUnvisitedNeighbours(node, grid);
         for(const neighbour of neighbours) {
             if(!queue.includes(neighbour)) {
                 queue.push(neighbour);

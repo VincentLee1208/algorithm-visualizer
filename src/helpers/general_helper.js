@@ -4,25 +4,25 @@ const isValid = (row, col, grid) => {
 
 const getUnvisitedNeighbours = (node, grid) => {
     const {row, col} = node;
-        const neighbours = [];
+    const neighbours = [];
 
-        const directions = [
-            {row: -1, col: 0},
-            {row: 1, col: 0},
-            {row: 0, col: -1},
-            {row: 0, col: +1}
-        ];
+    const directions = [
+        {row: -1, col: 0},
+        {row: 1, col: 0},
+        {row: 0, col: -1},
+        {row: 0, col: +1}
+    ];
 
-        for(const dir of directions) {
-            const neighbourRow = row + dir.row;
-            const neighbourCol = col + dir.col;
+    for(const dir of directions) {
+        const neighbourRow = row + dir.row;
+        const neighbourCol = col + dir.col;
 
-            if(isValid(neighbourRow, neighbourCol, grid) && grid[neighbourRow][neighbourCol] !== 1) {
-                neighbours.push({row: neighbourRow, col: neighbourCol});
-            }
+        if(isValid(neighbourRow, neighbourCol, grid) && grid[neighbourRow][neighbourCol] !== 1) {
+            neighbours.push({row: neighbourRow, col: neighbourCol});
         }
+    }
 
-        return neighbours;
+    return neighbours;
 };
 
 const createSeenNodesArray = (rows, cols) => {

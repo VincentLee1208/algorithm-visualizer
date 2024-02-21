@@ -139,9 +139,12 @@ const Pathfinder = () => {
       default:
         break;
     }
+    setIsRunning(false);
   };
 
+  
   const handleNextStep = (algorithm) => {
+    /*
     if(startNode == null || endNode == null) {
       console.log('Start or end node not set');
       return;
@@ -152,22 +155,28 @@ const Pathfinder = () => {
         setVisitedNodes(bfsAlgorithm(grid, startNode, endNode));
       } else if(algorithm === 'dfs') {
         setVisitedNodes(dfsAlgorithm(grid, startNode, endNode));
+      } else if(algorithm === 'dijkstra') {
+        setVisitedNodes(dijkstraAlgorithm(grid, startNode, endNode));
       }
       setIndex(1);
     }
 
     animateNextStep();
+    */
   };
 
   const handlePreviousStep = () => {
+    /*
     if(index > 0) {
       setIndex(index - 1);
       
       animatePreviousStep();
     }
+    */
   };
 
   const animatePreviousStep = () => { 
+    /*
     const node = visitedNodes[index];
 
     setGrid(prevGrid => {
@@ -177,9 +186,11 @@ const Pathfinder = () => {
       }
       return updatedGrid; 
     });
+    */
   };
 
   const animateNextStep = () => {
+    /*
     if(index < visitedNodes.length) {
       const node = visitedNodes[index];
 
@@ -193,7 +204,9 @@ const Pathfinder = () => {
 
       setIndex(index + 1);
     }
+    */
   };
+  
 
 
   const handleSetNode = (row, col) => {

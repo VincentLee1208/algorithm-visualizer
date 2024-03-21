@@ -56,7 +56,6 @@ const dijkstraAlgorithm = (grid, startNode, endNode) => {
 
             if(newDist < distance.get(getIndex(neighbour.row, neighbour.col))) {
                 distance.set(getIndex(neighbour.row, neighbour.col), newDist);
-                //parent.set(getIndex(neighbour.row, neighbour.col), getIndex(node.row, node.col));
                 parent.set(getIndex(neighbour.row, neighbour.col), node);
                 pq.push({ node: neighbour, distance: newDist });
             }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/GridSettings.css';
 
 const DEFAULT_ROWS = 20;
 const DEFAULT_COLS = 20;
